@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增交易委托信息</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div bind="leftButton" class="mini-output r" escape="false"></div>
+			<div class="uc-handlecontrols l" id="handlecontrols" action="handleCtrl" data-options="{type:0}"></div>
+		</div>
+		<div class="r mr10">
+			<div bind="rightButton" class="mini-output"></div>
+		</div>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div class="mini-fit">
+			<div class="fui-accordions">
+				<div role="accordion" opened="true">
+					<div role="head" title="受让单位基本信息"></div>
+					<div role="body">
+						<div class="fui-form">
+							<div role="form">
+								<div role="row">
+									<div role="control" label="单位名称">
+										<input bind="unitcominfo.danweiname" id="danweiname" class="mini-outputtext" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="注册资本">
+										<input bind="unitcominfo.zhuceziben" id="zhuceziben" class="mini-outputtext" />
+									</div>
+									<div role="control" label="法定代表人">
+										<input bind="unitcominfo.faren" id="faren" class="mini-outputtext" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="联系人">
+										<input bind="hzbrBasicInfo.lianxiren" id="lianxiren" class="mini-outputtext" />
+									</div>
+									<div role="control" label="联系电话">
+										<input bind="hzbrBasicInfo.lianxirenmobile" id="lianxirenmobile" class="mini-outputtext" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="accordion" opened="true">
+					<div role="head" title="受让项目基本情况"></div>
+					<div role="body">
+						<div class="fui-form">
+							<div role="form">
+								<div role="row">
+									<div role="control" label="项目名称" starred="true">
+										<input bind="dataBean.ProjectName" id="ProjectName" required="true" class="mini-textbox" style="width: 100%;" vtype="maxLength:300" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="建设地点" starred="true">
+										<input bind="dataBean.JianSheAdress" id="JianSheAdress" required="true" class="mini-textbox" style="width: 100%;" vtype="maxLength:300" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="所在区域" starred="true">
+										<input bind="dataBean.Area" id="Area" allowInput="false" class="mini-combobox" action="CodeItems('泰州市')" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="建设项目内容及规模" starred="true">
+										<input bind="dataBean.JianSheGuiMo" id="JianSheGuiMo" required="true" class="mini-textarea" style="height: 96px" vtype="maxLength:300" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="项目投资" starred="true">
+										<input bind="dataBean.ProjectTouZi" id="ProjectTouZi" required="true" class="mini-textbox" vtype="float" width="auto" />&#160;万元
+									</div>
+									<div role="control"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="accordion" opened="true">
+					<div role="head" title="受让申请"></div>
+					<div role="body">
+						<div class="fui-form">
+							<div role="form">
+								<div role="row">
+									<div role="control" label="化学需氧量（吨/年）" starred="true">
+										<input bind="dataBean.HuaXueXuYangLiang" id="HuaXueXuYangLiang" class="mini-textbox" onblur="checkHuiZong();" width="150px"
+											data-options="{format:'#0.000'}" vtype="decimalLength:3;range:0,9999999999" required="required" />
+									</div>
+									<div role="control" label="氨氮（吨/年）" starred="true">
+										<input bind="dataBean.AnDan" id="AnDan" class="mini-textbox" onblur="checkHuiZong();" width="150px" data-options="{format:'#0.000'}"
+											vtype="decimalLength:3;range:0,9999999999" required="required" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="二氧化硫（吨/年）" starred="true">
+										<input bind="dataBean.ErYangHuaLiu" id="ErYangHuaLiu" class="mini-textbox" onblur="checkHuiZong();" width="150px"
+											data-options="{format:'#0.000'}" vtype="decimalLength:3;range:0,9999999999" required="required" />
+									</div>
+									<div role="control" label="总价（元）" starred="true">
+										<input bind="dataBean.ShowTotalPrice" id="ShowTotalPrice" class="mini-textbox" onblur="checkHuiZong();" width="150px" allowInput="false" />
+									</div>
+								</div>
+								<div role="row">
+									<div role="control" label="交易方式" starred="true">
+										<input bind="dataBean.ProjectType" id="ProjectType" allowInput="false" class="mini-radiobuttonlist" action="CodeItems('排污授权项目交易方式')" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="accordion" opened="true">
+					<div role="head" title="附件信息"></div>
+					<div role="body">
+						<div class="form-wrap">
+							<div class="form-content">
+								<div class="uc-ywscanfilelist" id="ywscanfilelist1" action="ywscanfileValue" data-options=""></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="accordion" opened="true">
+					<div role="head" title="处理历史"></div>
+					<div role="body">
+						<div class="form-wrap">
+							<div class="form-content">
+								<div class="uc-workitemlist" id="workitemlist1" action="workItemValue" data-options="{IsUseHis:true,WorkflowType:1}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hidden">
+		<input class="mini-textbox" id="TotalPrice" bind="dataBean.TotalPrice" />
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+
+		epoint.initPage('pwqjiaoyiworkflowaction', '', function(data) {
+		});
+
+		//计算预算合计
+		function checkHuiZong() {
+			var HuaXueXuYangLiang = mini.get('HuaXueXuYangLiang').getValue();
+			var AnDan = mini.get('AnDan').getValue();
+			var ErYangHuaLiu = mini.get('ErYangHuaLiu').getValue();
+			var TotalPrice = 0;
+			if (HuaXueXuYangLiang.length > 0)
+				TotalPrice = TotalPrice + 4500 * 5 * parseFloat(HuaXueXuYangLiang);
+			if (AnDan.length > 0)
+				TotalPrice = TotalPrice + 11000 * 5 * parseFloat(AnDan);
+			if (ErYangHuaLiu.length > 0)
+				TotalPrice = TotalPrice + 2240 * 5 * parseFloat(ErYangHuaLiu);
+			mini.get('TotalPrice').setValue(TotalPrice.toFixed(3));
+			mini.get('ShowTotalPrice').setValue(TotalPrice.toFixed(3));
+			if (TotalPrice < 2000) {
+				mini.get('ShowTotalPrice').setValue("免收");
+			}
+		}
+
+		//]]>
+	</script>
+</body>
+</html>

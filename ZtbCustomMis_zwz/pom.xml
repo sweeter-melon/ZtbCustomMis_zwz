@@ -1,0 +1,122 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.epoint.ztb_zwz</groupId>
+	<artifactId>ZtbCustomMis_zwz</artifactId>
+	<packaging>jar</packaging>
+	<version>7.1.12.2</version>
+	<properties>
+		<allatori-version>5.5</allatori-version>
+		<maven-jar-plugin-version>2.4</maven-jar-plugin-version>
+		<maven-resources-plugin-version>2.6</maven-resources-plugin-version>
+		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- 引用招投标个性化工程 
+		<dependency>
+			<groupId>com.epoint.ztb_zwz</groupId>
+			<artifactId>ZtbCustomMis_zwz.Bizlogic</artifactId>
+			<version>7.1.12.2</version>
+		</dependency> -->
+		<!-- 引用招投标 -->
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>ZtbCommon</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<!-- 引用保证金平台 -->
+		<dependency>
+			<groupId>com.epoint.ztb.baozhengjin</groupId>
+			<artifactId>BZJServiceSDK</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>ZtbMis.Bizlogic</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>CustomFrame4Bid</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>HuiYuanZtbMis.Bizlogic</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>JYZtbMis.Bizlogic</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>Epoint.ZtbDataEX.BizLogic</artifactId>
+			<version>7.1.12.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>EpointBid_HuiYuan</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>JYZtbMis</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epoint.ztb</groupId>
+			<artifactId>HuiYuanInfoMis2</artifactId>
+			<version>7.1.12.2</version>
+		</dependency>
+		<!--JWeb8基础框架包(待删除) -->
+		<dependency>
+			<groupId>com.epoint.frame</groupId>
+			<artifactId>Epoint.Base</artifactId>
+			<version>9.1.18</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.epoint.frame</groupId> <artifactId>Epoint.Frame.Bizlogic</artifactId> 
+			<version>9.1.16</version> </dependency> <dependency> <groupId>com.epoint.advanced</groupId> 
+			<artifactId>Epoint.WorkFlow.Bizlogic</artifactId> <version>9.1.16</version> 
+			</dependency> -->
+		<!--F9报表包 -->
+		<dependency>
+			<groupId>com.epoint.advanced</groupId>
+			<artifactId>epoint-report</artifactId>
+			<version>9.1.18</version>
+		</dependency>
+
+		<!-- 环境容器 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- 引用第三方 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

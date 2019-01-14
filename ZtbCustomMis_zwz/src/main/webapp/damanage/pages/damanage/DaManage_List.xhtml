@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>档案管理列表</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div id="btnAdd" class="mini-button" onclick="openAdd">新增档案</div>
+			<div id="btnDel" class="mini-button" onclick="ztb.deleteSelect">删除档案</div>
+		</div>
+		<div class="r mr10">
+			<div id="rblAuditstatus" class="mini-radiobuttonlist" bind="selAuditStatus" onvaluechanged="epoint.refresh()" action="CodeItems('显示审核状态')"></div>
+		</div>
+	</div>
+
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="档案编号">
+						<input id="archivesNo" bind="archivesNo" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="档案名称">
+						<input id="archivesName" bind="archivesName" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%; height: 100%;" showPager="true"
+			allowUnselect="true" allowAlternating="true" multiSelect="true" showColumnsMenu="true" showReloadButton="false" allowCellWrap="true">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序</div>
+				<div field="ArchivesNo" headerAlign="center" width="160" align="left">档案编号</div>
+				<div field="ArchivesName" headerAlign="center" width="160" align="left">档案名称</div>
+				<div field="guidangyear" headerAlign="center" width="100" align="center">年度</div>
+				<div field="SecrecyLvl" headerAlign="center" width="100" align="center" data-options="{code:'档案密级'}">密级</div>
+				<div field="KeepTime" headerAlign="center" width="120" align="center" data-options="{code:'档案保管期限'}">保管期限</div>
+				<div field="caozuo" align="center" headerAlign="center" width="60">操作</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		epoint.initPage('damanagelistaction', null, function(data) {
+		});
+		function openAdd() {
+			epoint.openTopDialog("新增档案", "./DaManage_Workflow", epoint.refresh);
+		}
+		//]]>
+	</script>
+</body>
+</html>

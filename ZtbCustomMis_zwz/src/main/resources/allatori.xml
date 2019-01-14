@@ -1,0 +1,22 @@
+<config>
+	<jars>
+		<jar in="${project.build.finalName}.jar" out="${project.build.finalName}.jar" />
+	</jars>
+
+	<keep-names>
+		<class access="protected+">
+			<field access="protected+" />
+			<field template="static *" />
+			<method access="protected+" />
+		</class>
+		<class template="class *.domain.*">
+			<field template="*" />
+			<method template="*(**)" />
+			<method template="*(**)" />
+		</class>
+	</keep-names>
+	<ignore-classes>
+		<!-- <class template="class *" /> -->
+	</ignore-classes>
+
+</config>

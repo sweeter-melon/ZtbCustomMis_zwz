@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>文件列表</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar" id="btn">
+		<div class="btn-group mr10">
+			<div id="btnPass" class="mini-button" onclick="btnPass">验证通过</div>
+			<div id="btnNotPass" class="mini-button" onclick="btnNotPass">验证不通过</div>
+		</div>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div role="body">
+			<div>
+				<div id="datagrid" action="dataModel" class="mini-datagrid" idField="rowguid" style="width: 100%;" showPager="true" editNextOnEnterKey="true"
+					editNextRowCell="true" allowUnselect="true" allowAlternating="true" multiSelect="true" allowCellEdit="false" allowCellSelect="true">
+					<div property="columns">
+						<div type="checkcolumn"></div>
+						<div type="indexcolumn" headerAlign="center" width="50">序</div>
+						<div field="attachfilename" headerAlign="center" width="100%">文件名称</div>
+						<div field="attachlength" headerAlign="center" align="right" width="150">文件大小(KB)</div>
+						<div field="uploaduserdisplayname" headerAlign="center" width="150">上传人</div>
+						<div field="uploaddatetime" headerAlign="center" align="center" data-options="{format:'yyyy-MM-dd HH:mm:ss'}" width="150">上传时间</div>
+						<div field="download" headerAlign="center" align="center" width="80">下载</div>
+						<div field="shenheresults" name="shenheresults" headerAlign="center" align="center" width="135">审核状态</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		//初始化加载数据
+		var grid = mini.get('datagrid');
+		epoint.initPage('attachActYeWuAction', null, function(data) {
+			if (!data.isOpenscanreview) {
+				grid.hideColumn("checkcolumn");
+				grid.hideColumn("shenheresults");
+			}
+			if (!data.isShowbtn) {
+				$("#btn").hide();
+			}
+
+		});
+		window.onbeforeunload = function() {
+			return this.focus();
+		}
+		function btnPass() {
+			if (grid.getSelecteds().length > 0) {
+				epoint.confirm("您确定验证通过选中的电子件吗？", "", function() {
+					epoint.execute('savePass', null, null, epoint.refresh);
+				});
+			} else {
+				epoint.alert("请选择需要验证通过的电子件！");
+			}
+		}
+		function btnNotPass() {
+			if (grid.getSelecteds().length > 0) {
+				epoint.confirm("您确定验证不通过选中的电子件吗？", "", function() {
+					epoint.openDialog('意见', 'jsgcztbmis2/pages/attachmanage/AttachNotPassReason', function(reason) {
+						if (reason != "close") {
+							epoint.execute("saveNoPassReason", null, [ reason ], epoint.refresh);
+						}
+					}, {
+						width : 600,
+						height : 400
+					});
+				});
+			} else {
+				epoint.alert("请选择需要验证不通过的电子件！");
+			}
+		}
+		//]]>
+	</script>
+</body>
+</html>

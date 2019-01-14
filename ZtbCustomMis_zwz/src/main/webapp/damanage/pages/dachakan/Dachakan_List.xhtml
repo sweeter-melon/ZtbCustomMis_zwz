@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>档案借阅申请列表</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10"></div>
+		<div class="r mr10">
+			<div id="status" bind="status" class="mini-radiobuttonlist" repeatDirection="horizontal" onvaluechanged="epoint.refresh()"
+				data="[{text:'借阅中',id:'0'},{text:'全部',id:'1'}]"></div>
+		</div>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%; height: 100%;" showPager="true"
+			allowUnselect="true" allowAlternating="true" multiSelect="true" showColumnsMenu="true" showReloadButton="false" allowCellWrap="true">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序号</div>
+				<div field="ArchivesNo" headerAlign="center" width="160" align="center">档案编号</div>
+				<div field="ArchivesName" headerAlign="center" width="100%" align="center">档案名称</div>
+				<div field="SBR_Date" headerAlign="center" width="125" align="center" data-options="{format:'yyyy-MM-dd'}">申请时间</div>
+				<div field="BorrowStartTime" headerAlign="center" width="125" align="center" data-options="{format:'yyyy-MM-dd'}">借阅开始时间</div>
+				<div field="BorrowEndTime" headerAlign="center" width="125" align="center" data-options="{format:'yyyy-MM-dd'}">借阅结束时间</div>
+				<div headerAlign="center" width="100" align="center" renderer="onCqRenderer">查看/打印</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		epoint.initPage('dachakanaction', null, function(data) {
+		});
+		
+		var onCqRenderer = function(e) {	
+			
+			 if(e.row.status==1){
+				 return '<a href="javascript:void(0)" onclick="chakan(\''+e.row.rowguid+'\');">查看</a>';
+	
+			}else{
+				 return '<a href="javascript:void(0)" onclick="printrecord(\''+e.row.rowguid+'\');">打印</a>';
+			} 
+		};
+		
+		function chakan(rowguid)
+		{
+			epoint.openTopDialog("查看记录", "../daborrow/DZDA_Borrow_Detail?rowguid="+rowguid,epoint.refresh);			
+		}
+		
+		function printrecord(rowguid){
+				epoint.execute("updatestatus", null, rowguid, function(data) {
+					top.openDialog('netztbmis/pages/signature/YWPDFSignature?&ClientGuid='+rowguid+'&FileCode=ZH002&rebuild=1','','','','打印PDF',epoint.refresh);
+				});
+		}
+		
+		//]]>
+	</script>
+</body>
+</html>

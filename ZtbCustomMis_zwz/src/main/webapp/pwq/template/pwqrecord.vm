@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta charset='UTF-8' />
+<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	font: 12pt "Tahoma";
+}
+
+.page {
+	margin: 4cm 2cm 1cm 4cm;
+}
+
+.title3{
+	font-family: "微软雅黑";
+	font-size:30px;
+	text-align: center;
+}
+
+.paragraph {
+	text-align: left;
+	line-height: 40px;
+	font-size: 20px;
+}
+        table td {
+            font-size: 25px;
+            text-align: center;
+            line-height: 50px;
+        }
+	
+    </style>
+</head>
+<body>
+	<div class="page">
+		
+		<table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+			<tr>
+				<td  colspan="5" style="width:100%;font-size: 35px">排污权指标申请核定表</td>
+				
+			</tr>
+			<tr>
+				<td  rowspan="3" style="width:20%;font-size: 35px">受让单位基本信息</td>
+				<td  style="width:20%;font-size: 35px">单位名称</td>
+				<td  colspan="3" style="width:60%">$!{unitcominfo.danweiname}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">注册资本(万元)</td>
+				<td  style="width:20%">$!{unitcominfo.zhuceziben}</td>
+				<td  style="width:20%">法定代表人</td>
+				<td  style="width:20%">$!{unitcominfo.faren}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">联系人</td>
+				<td  style="width:20%">$!{hzbrBasicInfo.lianxiren}</td>
+				<td  style="width:20%">联系电话</td>
+				<td  style="width:20%">$!{hzbrBasicInfo.lianxirenmobile}</td>
+			</tr>
+			<tr>
+				<td  rowspan="6" style="width:20%;font-size: 35px">受让项目基本情况</td>
+				<td  style="width:20%;">项目名称</td>
+				<td  colspan="3" style="width:60%">$!{pwProjectinfo.ProjectName}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">项目编号</td>
+				<td  colspan="3" style="width:60%">$!{pwProjectinfo.ProjectNo}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">建设地点</td>
+				<td  colspan="3" style="width:60%">$!{pwProjectinfo.JianSheAdress}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">所在区域</td>
+				<td  colspan="3" style="width:60%">$!{Area}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">建设项目内容及建设规模</td>
+				<td  colspan="3" style="width:60%">$!{pwProjectinfo.JianSheGuiMo}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%">项目投资（万元）</td>
+				<td  colspan="3" style="width:60%">$!{pwProjectinfo.ProjectTouZi}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%;font-size: 35px">购买相关</td>
+				<td  style="width:20%;">总价(元)</td>
+				<td  style="width:20%;">$!{pwProjectinfo.TotalPrice}</td>
+				<td  style="width:20%;">交易方式</td>
+				<td  style="width:20%;">$!{ProjectType}</td>
+			</tr>
+			<tr>
+				<td  rowspan="2" style="width:20%;font-size: 35px">受让申请</td>
+				<td  style="width:20%;">受让排污权指标名称</td>
+				<td  style="width:20%;">化学需氧量</td>
+				<td  style="width:20%;">氨氮</td>
+				<td  style="width:20%;">二氧化硫</td>
+			</tr>
+			<tr>
+				<td  style="width:20%;">受让数量（吨/年）</td>
+				<td  style="width:20%;">$!{pwProjectinfo.HuaXueXuYangLiang}</td>
+				<td  style="width:20%;">$!{pwProjectinfo.AnDan}</td>
+				<td  style="width:20%;">$!{pwProjectinfo.ErYangHuaLiu}</td>
+			</tr>
+			<tr>
+				<td  style="width:20%;font-size: 35px">审核意见</td>
+				<td  colspan="4" style="width:80%"><div class="paragraph" style="text-align: right; margin-right: 15px">(盖章)</div></td>
+			</tr>
+			
+			
+		</table>
+		
+	</div>
+</body>
+</html>

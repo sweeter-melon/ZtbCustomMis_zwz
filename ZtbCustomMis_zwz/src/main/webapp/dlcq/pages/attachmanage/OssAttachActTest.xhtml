@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>电子件管理</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group r">
+			<div id="btnClose" class="mini-button" style="display: none" onclick="epoint.closeDialog();">确认关闭</div>
+			<div id="btnDel" class="mini-button" onclick="deleteSelect">删除</div>
+		</div>
+		<div class="btn-group r mr1">
+			<div id="uploader" pickerText="选择电子件上传" class="mini-webuploader" action="ossAttachActTestAction.getFileUploadModel"
+				limitType="doc,docx,txt,rar,zip,jpg,jpeg,pdf,xls,xlsx,gif,bmp,png" mimeTypes="" auto="true" onbeforefilequeued="ztb.uploader.onBeforeFileQueued"
+				onfilesqueued="ztb.uploader.onFilesQueued" onuploadcomplete="ztb.uploader.onUploadComplete" onfilesuccess="ztb.uploader.onfilesuccess"
+				onuploadfinished="ztb.uploader.onUploadFinished" needMD5="true" data-options="{refreshIds:'datagrid'}"></div>
+		</div>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%; height: 100%;" showPager="true"
+			allowAlternating="true" multiSelect="true" showReloadButton="false">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序</div>
+				<div field="attachfilename" headerAlign="center" allowSort="true" width="100%">文件名称</div>
+				<div field="attachlength" headerAlign="center" allowSort="true" align="right" width="150">文件大小(KB)</div>
+				<div field="download" headerAlign="center" width="80" align="center">下载</div>
+				<div field="delbtn" name="delbtn" align="center" headerAlign="center" width="60">删除</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+	 	var webuploader = mini.get("uploader");
+		epoint.initPage('ossAttachActTestAction')
+
+			function deleteSelect() {
+			if (mini.get("datagrid").getSelecteds().length > 0) {
+				epoint.confirm("确认要删除吗？", "", function() {
+					epoint.execute('deleteSelect', null, null, epoint.alertAndRefresh);
+				});
+			} else {
+				epoint.alert("请选择要删除的记录!");
+			}
+		}
+
+		//]]>
+	</script>
+</body>
+</html>

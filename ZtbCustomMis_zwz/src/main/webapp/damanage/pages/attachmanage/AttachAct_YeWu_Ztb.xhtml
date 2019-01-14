@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>电子件管理</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group l">
+			<div class="mini-checkbox" id="chkIsUseWebZtb" bind="chkIsUseWebZtb" onvaluechanged="checkValueChange" trueValue="1" falseValue="0"
+				text="本项目使用网上招投标 " style="margin-left: 10px"></div>
+		</div>
+		<div class="btn-group l">
+			<div bind="lblEx" class="mini-outputtext" escape="false" style="margin-left: 10px;" />
+		</div>
+		<div class="btn-group r">
+			<div id="btnDel" class="mini-button" onclick="deleteSelect">删除</div>
+		</div>
+		<div class="btn-group r mr1">
+			<div id="uploader" class="mini-webuploader" extraId="chkIsUseWebZtb" action="attachActYeWuZtbAction.getFileUploadModel" chunked="true" auto="true"
+				onbeforefilequeued="ztb.uploader.onBeforeFileQueued" onfilesqueued="ztb.uploader.onFilesQueued" onfilesuccess="ztb.uploader.onfilesuccess"
+				onuploadfinished="ztb.uploader.onUploadFinished" needMD5="true" onfinishedmd5file="ztb.uploader.onfinishedmd5file"></div>
+		</div>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%; height: 100%;" showPager="true"
+			allowAlternating="true" multiSelect="true" showReloadButton="false">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序</div>
+				<div field="attachfilename" headerAlign="center" allowSort="true" width="100%" align="center">文件名称</div>
+				<div field="attachlength" headerAlign="center" allowSort="true" align="center" width="150">文件大小(KB)</div>
+				<div field="uploaduserdisplayname" headerAlign="center" allowSort="true" width="150">上传人</div>
+				<div field="uploaddatetime" headerAlign="center" allowSort="true" width="150" data-options="{format:'yyyy-MM-dd HH:mm:ss'}"
+					dateFormat="yyyy-MM-dd HH:mm:ss" align="center">上传时间</div>
+				<div field="shenheresults" name="shenheresults" headerAlign="center" align="center" width="135">审核状态</div>
+				<div field="download" headerAlign="center" width="80" align="center">下载</div>
+			</div>
+		</div>
+	</div>
+	<div class="fui-notice ztb">
+		<div>
+			<span style="color: Red">注：</span> 启用网上招投标的时候，资格审查文件、资审澄清文件、交易文件、答疑澄清文件、招标控制价文件均<span style="color: Red">只能上传一个特定格式</span>的文件。<br /> <span
+				style="margin-left: 30px;">不启用网上招投标，资格审查文件、资审澄清文件、交易文件、答疑澄清文件、招标控制价文件可上传多个文件。</span><br /> <span style="margin-left: 30px;">点击文件名可在线查看文件。</span>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		var webuploader = mini.get("uploader"), chkIsUseWebZtb = mini.get('chkIsUseWebZtb'), ztbFileAllowList, maxSize, allowEx, ispostback = false, pagedata;
+		epoint.initPage('attachActYeWuZtbAction', null, function(data) {
+			if (data.msg) {
+				epoint.alertAndClose(data.msg);
+			}
+			if (data.attachDeleteGrant == '0') {
+				mini.get('datagrid').hideColumn('delbtn');
+			}
+			if (!data.isOpenscanreview) {
+				mini.get('datagrid').hideColumn('shenheresults');
+			}
+			webuploader.setVisible(data.showUpBtn);
+			allowEx = data.allowEx;
+			ztbFileAllowList = data.ztbFileAllowList;
+			maxSize = data.maxSize;
+			!ispostback && chkIsUseWebZtb.setEnabled(data.enabled);
+			pagedata = data;
+			checkValueChange();
+			ispostback = true;
+		});
+
+		function checkValueChange(data) {
+			if (chkIsUseWebZtb.checked) {
+				ztb.uploader.setFileAccept(webuploader, ztbFileAllowList);
+				webuploader.setLimitType(ztbFileAllowList);
+				webuploader.setFileSingleSizeLimit(0);//网招文件不限制大小
+				webuploader.setFileNumLimit(1);//网招文件只允许上传一个
+			} else {
+				ztb.uploader.setFileAccept(webuploader, allowEx);
+				webuploader.setLimitType(allowEx);
+				maxSize && webuploader.setFileSingleSizeLimit(maxSize);
+				(pagedata.maxLimit && (pagedata.maxLimit = parseInt(pagedata.maxLimit)) && webuploader.setFileNumLimit(pagedata.maxLimit)) || webuploader.setFileNumLimit();
+			}
+		}
+
+		function deleteSelect() {
+			if (mini.get("datagrid").getSelecteds().length > 0) {
+				epoint.confirm("确认要删除吗？", "", function() {
+					epoint.execute('deleteSelect', null, null, epoint.alertAndRefresh);
+				});
+			} else {
+				epoint.alert("请选择要删除的记录!");
+			}
+		}
+		//]]>
+	</script>
+</body>
+</html>

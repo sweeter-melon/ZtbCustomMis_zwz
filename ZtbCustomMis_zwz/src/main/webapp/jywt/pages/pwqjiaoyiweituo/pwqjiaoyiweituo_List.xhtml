@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>排污权交易委托列表</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div class="mini-button" onclick="openAdd" id="btnAdd">新增项目</div>
+			<div class="mini-button" onclick="ztb.deleteSelect" id="btnDel">删除项目</div>
+		</div>
+		<div class="r mr10">
+			<div id="rblAuditstatus" class="mini-radiobuttonlist" bind="selAuditStatus" onvaluechanged="epoint.refresh()" action="CodeItems('显示审核状态')"></div>
+		</div>
+	</div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="项目编号">
+						<input id="projectbh" bind="projectbh" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="项目名称">
+						<input id="projectname" bind="projectname" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div> 
+
+
+	<!-- 内容区域 -->
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" idField="rowguid" action="getDataModel" showPager="true" style="height: 100%;" allowResize="true"
+			multiSelect="true" allowCellEdit="true" allowCellSelect="true" editNextOnEnterKey="true" editNextRowCell="true">
+			<div property="columns">
+				<div type="checkcolumn" width="40"></div>
+				<div type="indexcolumn" width="40" headerAlign="center">序号</div>
+				<div field="projectbh" headerAlign="center" width="140">项目编号</div>
+				<div field="projectname" headerAlign="center" width="180">项目名称</div>
+				<div field="danweiname" headerAlign="center" width="160">单位名称</div>
+				<div field="weituotype" headerAlign="center" width="80" align="center" data-options="{code:'委托类型'}">委托类型</div>
+				<div field="pwlicenseyxq" width="100" align="center" headerAlign="center" data-options="{'format':'yyyy-MM-dd '}">排污许可证有效期</div>
+				<div field="auditstatus" width="60" align="center" headerAlign="center" data-options="{code:'审核状态'}">审核状态</div>
+				<div field="btnscript" width="40" align="center" headerAlign="center">操作</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 请修改相对路径 -->
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		// 初始化页面
+		epoint.initPage('lgspwqjiaoyiweituolistaction', '', function(data) {
+			//控制删除按钮的显示
+			var status = mini.get("rblAuditstatus").getValue();
+			if (status == 1 || status == 4) {
+				mini.get("btnDel").show();
+			} else {
+				mini.get("btnDel").hide();
+			}
+		});
+
+		// 弹出新增窗口
+		function openAdd() {
+			epoint.openTopDialog('新增项目', "jywt/pages/pwqjiaoyiweituo/pwqjiaoyiweituo_Workflow", epoint.refresh);
+		}
+
+		// 删除数据
+		function deleteSelect() {
+			epoint.execute("deleteSelect", '', callback);
+		}
+		function callback(data) {
+			if (data.msg) {
+				epoint.alert(data.msg, '', epoint.refresh);
+			}
+		}
+		//]]>
+	</script>
+</body>
+</html>

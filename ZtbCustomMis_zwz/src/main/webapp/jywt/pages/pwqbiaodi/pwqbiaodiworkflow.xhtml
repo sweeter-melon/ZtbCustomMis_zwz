@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>标的信息</title>
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+
+<body>
+	<!-- 必须有，加载时的loading效果 -->
+	<div class="page-loading"></div>
+	<!-- toolbar区域 -->
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<a class="mini-button" id="addClose" onclick="saveAndClose">保存</a> <a class="mini-button" onclick="epoint.closeDialog">关闭</a>
+		</div>
+	</div>
+
+	<!-- 内容区域 -->
+	<div class="fui-content">
+		<div id="fui-form" class="fui-form">
+			<div id="fui-form" class="fui-form">
+				<div role="row">
+					<div role="control" label="排污指标名称">
+						<input bind="dataBean.pwzhibiaoname" id="pwzhibiaoname" class="mini-textbox" required="required" />
+					</div>
+					<div role="control" label="排污指标所在区域">
+						<input bind="dataBean.pwzhibiaoquyu" id="pwzhibiaoquyu" allowInput="false" class="mini-combobox" action="CodeItems('交易地区')" />
+					</div>
+				</div>
+				<div role="row">
+					<div role="control" label="交易指标数量（吨）">
+						<input bind="dataBean.jiaoyizhibiaocount" id="jiaoyizhibiaocount" class="mini-textbox" required="required" vtype="decimalLength:2"/>
+					</div>
+					<div role="control" label="起始价格（元/吨）">
+						<input bind="dataBean.qishiprice" id="qishiprice" class="mini-textbox" required="required" vtype="decimalLength:2"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 请修改相对路径 -->
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		// 初始化页面
+		epoint.initPage('lgspwqbiaodiaddaction');
+		//保存
+		function saveAndClose() {
+			if (epoint.validate()) {
+				epoint.execute('save', null, null, function(data) {
+					if (data && data == '保存成功！') {
+						epoint.alertAndClose(data);
+					} else {
+						epoint.alert(data);
+					}
+				});
+			}
+		}
+		//]]>
+	</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta charset='UTF-8' />
+<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	font: 12pt "Tahoma";
+}
+
+.page {
+	margin: 4cm 2cm 1cm 4cm;
+}
+
+.title3{
+	font-family: "微软雅黑";
+	font-size:30px;
+	text-align: center;
+}
+
+.paragraph {
+	text-align: left;
+	line-height: 40px;
+	font-size: 20px;
+}
+        table td {
+            font-size: 25px;
+            text-align: center;
+            line-height: 50px;
+        }
+	
+    </style>
+</head>
+<body>
+	<div class="page">
+		
+		<table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+			<tr>
+				<td  style="width:25%">档案编号 </td>
+				<td  style="width:25%">$!{archivesInfo.ArchivesNo} </td>
+				<td  style="width:25%">档案名称 </td>
+				<td  style="width:25%">$!{archivesInfo.ArchivesName} </td>
+			</tr>
+			<tr>
+				<td  style="width:25%">年度 </td>
+				<td  style="width:25%">$!{archivesInfo.guidangyear} </td>
+				<td  style="width:25%">密级 </td>
+				<td  style="width:25%">$!{SecrecyLvl} </td>
+			</tr>
+			<tr>
+				<td  style="width:25%">保管期限 </td>
+				<td  style="width:25%">$!{keeptime} </td>
+				<td  style="width:25%">归档时间 </td>
+				<td  style="width:25%">$!{archivesInfo.SBR_Date} </td>
+			</tr>
+			<tr>
+				<td  style="width:25%">档案所属单位</td>
+				<td  style="width:75%" colspan="3" >$!{archivesInfo.ArchivesDanWei} </td>
+				
+			</tr>
+			<tr>
+				<td  style="width:25%">借阅开始时间 </td>
+				<td  style="width:25%">$!{borrow.BorrowStartTime} </td>
+				<td  style="width:25%">借阅结束时间 </td>
+				<td  style="width:25%">$!{borrow.BorrowEndTime} </td>
+			</tr>
+			<tr>
+				<td  style="width:25%">借阅人</td>
+				<td  style="width:25%">$!{borrow.SBR_Name} </td>
+				<td  style="width:25%">借阅时间 </td>
+				<td  style="width:25%">$!{borrow.SBR_Date} </td>
+			</tr>
+			<tr>
+				<td  style="width:25%">借阅说明</td>
+				<td  style="width:75%" colspan="3" >$!{borrow.Remark} </td>
+			</tr>
+			
+		</table>
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>招标代理抽取工作流</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+
+	<!-- toolbar区域 -->
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div bind="leftButton" class="mini-output r" escape="false"></div>
+			<div class="uc-handlecontrols l" id="handlecontrols" action="handleCtrl" data-options="{type:0,validate:'CheckClientValidate'}"></div>
+		</div>
+		<div class="r mr10">
+			<div bind="rightButton" class="mini-output"></div>
+		</div>
+	</div>
+
+	<div class="fui-content">
+		<div class="fui-accordions">
+			<div role="accordion" opened="true">
+				<div role="head" title="选取信息"></div>
+				<div role="body">
+					<!-- 内容区域 -->
+					<div id="fui-form" class="fui-form">
+						<div role="form">
+							<div role="row">
+								<div role="control" label="选取编号">
+									<input bind="dataBean.xuanquno" id="xuanquno" class="mini-outputtext" style="width: 100%;" />
+								</div>
+								<div role="control" label="选取名称">
+									<input bind="dataBean.xuanquname" id="xuanquname" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="候选人来源">
+									<input bind="dataBean.xuanqutype" id="xuanqutype" class="mini-outputtext" style="width: 100%;"
+										data-options="{code:'候选人来源'}"  />
+								</div>
+								<div role="control" label="联系方式">
+									<input bind="dataBean.lianxitel" id="lianxitel" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="项目预算规模">
+									<input bind="dataBean.yusuanprice" id="yusuanprice" class="mini-outputtext" style="width: 100%;" />
+								</div>
+								<div role="control" label="申请时间">
+									<input bind="dataBean.shengqingdate" id="shengqingdate" class="mini-outputtext" data-options="{format:'yyyy-MM-dd'}" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="单位名称">
+									<input bind="dataBean.danweiname" id="danweiname" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="备注说明">
+									<input bind="dataBean.remark" id="remark" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+						</div>
+						<!-- 主键隐藏域 -->
+						<input bind="dataBean.rowguid" id="rowguid" required="true" class="mini-hidden" />
+					</div>
+				</div>
+			</div>
+			<div role="accordion">
+				<div role="head" title="选取代理列表"></div>
+				<div role="body">
+					<div id="fui-form" class="fui-form">
+						<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%;" showPager="true" allowUnselect="true"
+							allowAlternating="true" multiSelect="true" showColumnsMenu="true" showReloadButton="false" allowCellWrap="true">
+							<div property="columns">
+								<div type="indexcolumn" headerAlign="center" width="50">序</div>
+								<div field="unitorgnum" headerAlign="center" width="160" align="center">组织机构代码</div>
+								<div field="dailiname" headerAlign="center" width="100%" align="center">代理名称</div>
+								<div field="showCZNums" headerAlign="center" width="180" align="center">抽中项目数</div>
+								<div field="zhucezijin" headerAlign="center" width="125" align="center">注册资金</div>
+								<div renderer="infoRenderer" align="center" headerAlign="center" width="60">查看</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div role="accordion" opened="true">
+				<div role="head" title="附件信息"></div>
+				<div role="body">
+					<div class="form-wrap">
+						<div class="form-content">
+							<div class="uc-ywscanfilelist" id="ywscanfilelist1" action="ywscanfileValue" data-options=""></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+	//<![CDATA[
+	//初始化页面
+	epoint.initPage('xuanquinfoworkflowaction', null, function(result) {
+	});
+	
+	var infoRenderer = function(e){
+		return epoint.renderCell(e, "action-icon icon-search", "info","rowguid,unitorgnum");
+	}
+	function info(e){
+		var url='../dailiinfo/DaiLiInfo_Detail?rowguid='+e.rowguid+'&dailiname='+e.unitorgnum;
+		epoint.openDialog("诚信库招标代理",url,function(data){
+		epoint.refresh();	
+		});
+	}
+	
+	//]]>
+	</script>
+</body>
+</html>

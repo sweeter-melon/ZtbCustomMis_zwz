@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增交易委托信息</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div id="fuiContent" class="fui-content">
+		<div class="mini-fit">
+			<div class="fui-accordions">
+				<div role="accordion" opened="true">
+					<div role="head" title="排污权项目备注"></div>
+					<div role="body">
+						<div class="fui-form">
+							<div role="form">
+								<div role="row">
+									<div role="control" label="备注" starred="true">
+										<input bind="dataBean.Remark" id="Remark" required="true" class="mini-textarea"  vtype="maxLength:300"
+											style="height:96px;" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 20px;"></div>
+		<div style="height: 7%;">
+			<div class="btn-group;" style="text-align: center;">
+				<div id="btnOk" onclick="btnSure_Click()" class="mini-button">添加保存</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+
+		epoint.initPage('pwqbeizhuaction', '', function(data) {
+		});
+
+		function btnSure_Click() {
+				epoint.execute("saveinfo", null, [ "" ], function(data) {
+					epoint.closeDialog();
+				});
+			}
+		
+		//]]>
+	</script>
+</body>
+</html>

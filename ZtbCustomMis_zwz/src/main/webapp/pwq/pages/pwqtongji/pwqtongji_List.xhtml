@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>排污指标统计</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="开始时间">
+						<input bind="StartTime" id="StartTime" class="mini-datepicker" data-options="{toControl:'EndTime'}"
+							ondrawdate="ztb.datepicker.onDrawDate" allowInput="false" />
+					</div>
+					<div role="control" label="截止时间">
+						<input bind="EndTime" id="EndTime" class="mini-datepicker" data-options="{fromControl:'StartTime'}"
+							ondrawdate="ztb.datepicker.onDrawDate" allowInput="false" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div>
+
+
+	<!-- 内容区域 -->
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" idField="rowguid" action="getDataModel1" showPager="true" style="height: 100%;" allowResize="true"
+			multiSelect="true" allowCellEdit="true" allowCellSelect="true" editNextOnEnterKey="true" editNextRowCell="true">
+			<div property="columns">
+			    <div type="indexcolumn" width="40" headerAlign="center">序号</div>
+				<div field="Area" headerAlign="center" width="100" align="center" data-options="{code:'泰州市'}">区域</div>
+				<div field="HuaXueXuYangLiang" headerAlign="center" width="100" align="center">化学需氧量</div>
+				<div field="AnDan" headerAlign="center" width="100" align="center">氨氮</div>
+				<div field="ErYangHuaLiu" headerAlign="center" width="100" align="center">二氧化硫</div>
+				<div field="ShowTotalPrice" headerAlign="center" width="100" align="center">总价</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 请修改相对路径 -->
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		// 初始化页面
+		epoint.initPage('pwqtongjilistaction', '', function(data) {
+		});
+
+		//]]>
+	</script>
+</body>
+</html>

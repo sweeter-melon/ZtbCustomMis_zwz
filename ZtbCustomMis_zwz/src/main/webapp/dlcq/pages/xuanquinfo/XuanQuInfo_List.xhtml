@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>招标代理抽取列表</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div id="btnAdd" class="mini-button" onclick="openAdd">申请项目</div>
+			<div id="btnDel" class="mini-button" onclick="ztb.deleteSelect">删除抽取项目</div>
+		</div>
+		<div class="r mr10">
+			<div id="rblAuditstatus" class="mini-radiobuttonlist" bind="selAuditStatus" onvaluechanged="epoint.refresh()" action="CodeItems('显示审核状态')"></div>
+		</div>
+	</div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="选取编号">
+						<input id="xuanquno" bind="xuanquno" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="选取名称">
+						<input id="xuanquname" bind="xuanquname" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+				<div role="row">
+					<div role="control" label="申请时间">
+						<input id="shengqingdatefrom" bind="shengqingdatefrom" class="mini-datepicker" width="40%" maxLength="50" /> <input id="shengqingdateto"
+							bind="shengqingdateto" class="mini-datepicker" width="40%" maxLength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div>
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" action="dataModel" idField="rowguid" style="width: 100%; height: 100%;" showPager="true"
+			allowUnselect="true" allowAlternating="true" multiSelect="true" showColumnsMenu="true" showReloadButton="false" allowCellWrap="true">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序</div>
+				<div field="xuanquno" headerAlign="center" width="160" align="center">选取编号</div>
+				<div field="xuanquname" headerAlign="center" width="100%" align="center">选取名称</div>
+				<div field="dailiname" headerAlign="center" width="180" align="center">申请人</div>
+				<div field="shengqingdate" headerAlign="center" width="125" align="center" data-options="{format:'yyyy-MM-dd'}">申请时间</div>
+				<div field="auditstatus" headerAlign="center" allowSort="true" width="180" align="center" data-options="{code:'审核状态'}">审核状态</div>
+				<div field="btnscript" align="center" headerAlign="center" width="60">操作</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		epoint.initPage('xuanquinfolistaction', null, function(data) {
+		});
+		function openAdd() {
+			epoint.openTopDialog("申请项目", "./XuanQuInfo_Workflow",epoint.refresh
+			);
+		}
+		//]]>
+	</script>
+</body>
+</html>

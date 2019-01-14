@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>排污权交易委托列表</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div class="mini-button" onclick="openAdd" id="btnAdd">新增项目</div>
+			<div class="mini-button" onclick="ztb.deleteSelect" id="btnDel">删除项目</div>
+			<div id="btnAdd" class="mini-button" onclick="excelPort">导出excel</div>
+		</div>
+		<div class="r mr10">
+			<div id="rblAuditstatus" class="mini-radiobuttonlist" bind="selAuditStatus" onvaluechanged="epoint.refresh()" action="CodeItems('显示审核状态')"></div>
+		</div>
+	</div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="项目编号">
+						<input id="projectno" bind="projectno" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="项目名称">
+						<input id="projectname" bind="projectname" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+				<div role="row">
+					<div role="control" label="受让单位">
+						<input id="danweiname" bind="danweiname" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="交易方式">
+						<input id="ProjectType" bind="ProjectType" class="mini-combobox" action="CodeItems('排污授权项目交易方式')" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div> 
+
+
+	<!-- 内容区域 -->
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" idField="rowguid" action="getDataModel" showPager="true" style="height: 100%;" allowResize="true"
+			multiSelect="true" allowCellEdit="true" allowCellSelect="true" editNextOnEnterKey="true" editNextRowCell="true">
+			<div property="columns">
+				<div type="checkcolumn" width="40"></div>
+				<div type="indexcolumn" width="40" headerAlign="center">序号</div>
+				<div field="projectno" headerAlign="center" width="140" align="left">项目编号</div>
+				<div field="projectname" headerAlign="center" width="180" lign="left">项目名称</div>
+				<div field="danweiname" headerAlign="center" width="100" align="center">受让单位</div>
+				<div field="JianSheAdress" headerAlign="center" width="100" align="center" >建设地点</div>
+				<div field="ProjectTouZi" headerAlign="center" width="100" align="right">项目投资（万元）</div>
+				<div field="ProjectType" headerAlign="center" width="100" align="center" data-options="{code:'排污授权项目交易方式'}">交易方式</div>
+				<div field="auditstatus" width="60" align="center" headerAlign="center" data-options="{code:'审核状态'}">审核状态</div>
+				<div field="btnscript" width="40" align="center" headerAlign="center">操作</div>
+				<div  width="40" align="center" headerAlign="center" renderer="onRenderer">备注</div>
+				<div  width="40" align="center" headerAlign="center" renderer="onPrintRenderer">打印</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 请修改相对路径 -->
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		// 初始化页面
+		epoint.initPage('pwqjiaoyilistaction', '', function(data) {
+		});
+
+		// 弹出新增窗口
+		function openAdd() {
+			epoint.openTopDialog('新增项目', "./pwqjiaoyi_Workflow", epoint.refresh);
+		}
+       // 导出
+		function excelPort() {
+			epoint.execute("excelPort", null, null, function(data) {
+				window.open("../../../EpointMisTempFile/TJ/" + data + "/排污权导出.xls");
+			});
+		}
+		
+		//打印
+		var onPrintRenderer = function(e) {	
+			
+		     return '<a href="javascript:void(0)" onclick="print(\''+e.row.rowguid+'\');">打印</a>';
+	
+		};
+		
+		var onRenderer = function(e) {	
+			
+			 if(e.row.auditstatus== "审核通过" ){
+				 return '<a href="javascript:void(0)" onclick="beizhu(\''+e.row.rowguid+'\');">备注</a>';
+	
+			}else{
+				return '<a href="javascript:void(0)" onclick="chakan(\''+e.row.rowguid+'\');">查看</a>';
+			} 
+		};
+		
+		function chakan(rowguid)
+		{
+			epoint.openTopDialog("查看备注", "./beizhu_Detail?rowguid="+rowguid,epoint.refresh);			
+		}
+		
+		function beizhu(rowguid)
+		{
+			epoint.openTopDialog("添加备注", "./beizhu_Workflow?rowguid="+rowguid,epoint.refresh);			
+		}
+		
+		function print(rowguid){
+			top.openDialog('netztbmis/pages/signature/YWPDFSignature?&ClientGuid='+rowguid+'&FileCode=ZH002&rebuild=1','','','','打印PDF',epoint.refresh);
+		}
+		//]]>
+	</script>
+</body>
+</html>

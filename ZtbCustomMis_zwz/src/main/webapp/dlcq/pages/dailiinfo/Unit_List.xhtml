@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>代理单位列表</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="统一社会信用代码">
+						<input bind="zzjgdm" id="zzjgdm" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="单位名称">
+						<input bind="dwmc" id="dwmc" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div>
+	<div class="fui-content">
+		<div id="datagrid" action="dataModel" class="mini-datagrid" idField="rowguid" style="width: 100%; height: 80%;" showPager="true"
+			allowUnselect="true" allowAlternating="true" multiSelect="true" showReloadButton="false">
+			<div property="columns">
+				<div type="checkcolumn"></div>
+				<div type="indexcolumn" headerAlign="center" width="50">序</div>
+				<div field="unitorgnum" headerAlign="center" allowSort="true" width="150" align="center">统一社会信用代码</div>
+				<div field="danweiname" headerAlign="center" allowSort="true" width="100%" align="left">单位名称</div>
+				<div field="areaname" headerAlign="center" allowSort="true" width="200" align="center">注册地区</div>
+				<div field="zhuceziben" headerAlign="center" allowSort="true" width="200" align="center">注册资金</div>
+				<!-- <div field="shrbm" headerAlign="center" allowSort="true" width="90" align="center">部门</div>
+				<div field="shrdw" headerAlign="center" allowSort="true" width="90" align="center">单位</div>
+				<div field="shr_name" headerAlign="center" allowSort="true" width="90" align="center">审核人</div> -->
+				<div headerAlign="center" width="60" align="center" renderer="onSHRenderer">操作</div>
+			</div>
+		</div>
+		<div style="height: 20px;"></div>
+		<div style="height: 7%;">
+			<div class="btn-group;" style="text-align: center;">
+				<div id="btnOk" onclick="btnSure_Click()" class="mini-button">确认选择</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../fui/js/jsboot.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		var xuanQuGuid = "";//选取表的rowguid
+		epoint.initPage('zbdaiLiInfoUnitListAction', null, function(data) {
+			xuanQuGuid = data.xuanQuGuid;
+			ztb.hylistController(data);
+		});
+
+		var onSHRenderer = function(e) {
+			return epoint.renderCell(e, "action-icon icon-addcircle", "addDaiLi");
+		};
+		function addDaiLi(rowguid) {
+			epoint.execute("saveDaiLiInfo", null, rowguid, function(data) {
+				epoint.closeDialog();
+			});
+		}
+
+		function btnSure_Click() {
+
+			var rows = mini.get("datagrid").getSelecteds();
+			if (rows <= 0) {
+				epoint.alert("请选择一条记录!");
+
+			} else {
+				epoint.execute("saveDaiLiInfo", null, [ "" ], function(data) {
+					epoint.closeDialog();
+				});
+			}
+		}
+
+		//]]>
+	</script>
+</body>
+
+</html>

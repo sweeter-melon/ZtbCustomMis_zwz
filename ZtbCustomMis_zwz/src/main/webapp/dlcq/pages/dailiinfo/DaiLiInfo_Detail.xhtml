@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>招标代理信息</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+	<!-- toolbar区域 -->
+	<div class="fui-content">
+		<div class="fui-accordions">
+			<div role="accordion" opened="true">
+				<div role="head" title="代理信息"></div>
+				<div role="body">
+					<!-- 内容区域 -->
+					<div id="fui-form" class="fui-form">
+						<div role="form">
+							<div role="row">
+								<div role="control" label="组织机构代码">
+									<input bind="daiLiInfo.unitorgnum" id="unitorgnum" required="true" class="mini-outputtext" style="width: 100%;" />
+								</div>
+								<div role="control" label="代理名称">
+									<input bind="daiLiInfo.dailiname" id="dailiname" required="true" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="抽中项目数">
+									<input bind="daiLiInfo.extractnum" id="extractnum" required="true" class="mini-outputtext" style="width: 100%;" />
+								</div>
+								<div role="control" label="注册资金">
+									<input bind="daiLiInfo.zhucezijin" id="zhucezijin" required="true" class="mini-outputtext" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="备注">
+									<input bind="daiLiInfo.remark" id="remark" required="true" class="mini-textarea" style="width: 100%;" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//初始化页面
+		var xuanQuGuid = "";//选取表的rowguid
+		epoint.initPage('daiinfoworkflowaction', null, function(data) {
+			xuanQuGuid = data.xuanQuGuid;
+		});
+
+	</script>
+</body>
+</html>

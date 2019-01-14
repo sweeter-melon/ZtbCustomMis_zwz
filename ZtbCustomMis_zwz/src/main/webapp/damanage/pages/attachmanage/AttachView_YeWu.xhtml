@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>查看电子件</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="../../../fui/js/cssboot.js"></script>
+<link rel="stylesheet" href="../../../css/img/ad-gallery/jquery.ad-gallery.css" />
+</head>
+<body>
+	<div class="page-loading"></div>
+	<div id="fuiContent" class="fui-content">
+		<div class="topbar noprint">
+			<div class="left">
+				<div class="va leftbg" style="display: block;"></div>
+			</div>
+			<div class="topcontain" style="width: 1310px;">
+				<div class="topelements"></div>
+			</div>
+			<div class="right">
+				<div class="va rightbg" style="display: block;"></div>
+			</div>
+		</div>
+
+		<div id="container">
+			<div class="toolContainer" style="width: 95%; height: 34px; margin: 0px auto;" id="toolContainer">
+				<div class="btn-group mr10">
+					<div class="mini-button" id="btnPass" onclick="commit('pass')">验证通过</div>
+					<div class="mini-button" id="btnNotPass" onclick="commit('notPass')">验证不通过</div>
+				</div>
+			</div>
+			<div id="gallery" class="ad-gallery">
+				<div class="ad-info noprint">
+					<div class="imgtools"></div>
+				</div>
+				<!--sp1-->
+				<div class="ad-image-wrapper"></div>
+				<!--ep1-->
+				<div id="divPicTitle"></div>
+				<div class="ad-nav noprint">
+					<div class="ad-thumbs">
+						<div class="ad-thumb-list"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script src="../../../js/jquery.ad-gallery.js"></script>
+	<script src="../../../js/raphael-min.js"></script>
+	<!-- 配置变量 -->
+	<script>
+		//<![CDATA[
+		//初始化页面
+		var viewType, p;
+		epoint.initPage('attachViewActionYeWu', null, function(data) {
+			if (!data.isOpenscanreview) {
+				$("#toolContainer").hide();
+				viewType = "";
+			} else {
+				viewType = "1";
+			}
+			p = {
+				IfAjax : '1',
+				topelements : data.bindModuleTypeValue,
+				ClientGuid : data.clientGuid,
+				ClientType : data.clientType,
+				ModuleType : data.clientType,
+				ViewType : viewType,//用于判断是否显示审核状态
+				CurrentPageIndex : data.currentPageIndex,
+				AttachGuid : '',
+				nowIndex : -1,
+				//定义了一个空对象
+				head : {},
+				content : {},
+				galleries : null,
+				auditstatus : [ '', '', '待审核', '审核通过', '审核不通过' ],//用于审核状态显示
+				canvas : {
+					canvasimg : null,
+					kuan : 0,
+					gao : 0,
+					imgsrc : "",
+					R : null,
+					angle : 0,
+					xAxis : 0,
+					yAxis : 0,
+					H : null,
+					H_kuan : 0,
+					H_gao : 0,
+					scale : 1
+				}
+			};
+			ztb.attachview.InitYeWu(p);
+		});
+
+		function commit(CommandName) {
+			if ("notPass" == CommandName) {
+				epoint.openDialog('意见', 'jsgcztbmis2/pages/attachmanage/AttachNotPassReason', function(reason) {
+					if (reason != "close") {
+						commitSave(CommandName, reason);
+					}
+				}, {
+					width : 600,
+					height : 400
+				});
+			} else
+				commitSave(CommandName, "");
+
+		}
+
+		function commitSave(CommandName, reason) {
+			epoint.execute(CommandName, null, [ reason, p.AttachGuid, $('.topelements .click').text() ], function(ret) {
+				if (ret) {
+					if (ret.indexOf('error') == 0) {
+						epoint.alert(ret.substring(6));
+					} else {
+						epoint.alert(ret);
+						//修改当前图片控件容器中图片的描述-审核状态
+						var image = p.galleries[0].images[p.galleries[0].current_index];
+						var selfdesp = eval(image.selfdesp)[0];
+						selfdesp.AuditStatus_Temp = CommandName == "pass" ? "3" : "4";
+						image.selfdesp = "[" + epoint.encodeJson(selfdesp) + "]";
+						//切换ModuleType后，通过content重新加载
+						p.content[p.ModuleType][p.galleries[0].current_index].description = image.selfdesp;
+						//页面显示直接修改掉，无需刷新
+						$(".spstatus").text((CommandName == "pass" ? p.auditstatus[3] : p.auditstatus[4]));
+					}
+				}
+			});
+		}
+
+		function save() {
+			var href = $('.ad-active').attr("href");
+			var filename = href.substring(href.lastIndexOf("/") + 1, href.length);
+			var attachGuid = filename.substring(0, filename.indexOf("."));
+			epoint.execute('saveImage', null, [ attachGuid, p.canvas.angle ], epoint.alertAndClose);
+		}
+		//]]>
+	</script>
+</body>
+</html>

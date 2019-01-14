@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>打印回执</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+
+<body>
+	<div class="page-loading"></div>
+	<div class="fui-condition">
+		<div class="fui-form">
+			<div role="form">
+				<div role="row">
+					<div role="control" label="项目编号">
+						<input id="projectbh" bind="projectbh" class="mini-textbox" maxLength="50" />
+					</div>
+					<div role="control" label="项目名称">
+						<input id="projectname" bind="projectname" class="mini-textbox" maxLength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<a role="searcher" callback="ztb.refresh"></a>
+	</div> 
+	<!-- 内容区域 -->
+	<div id="fuiContent" class="fui-content">
+		<div id="datagrid" class="mini-datagrid" idField="rowguid" action="getDataModel" showPager="true" style="height: 100%;" allowResize="true"
+			multiSelect="true" allowCellEdit="true" allowCellSelect="true" editNextOnEnterKey="true" editNextRowCell="true">
+			<div property="columns">
+				<div type="checkcolumn" width="40"></div>
+				<div type="indexcolumn" width="40" headerAlign="center">序号</div>
+				<div field="projectbh" headerAlign="center" width="140">项目编号</div>
+				<div field="projectname" headerAlign="center" width="180">项目名称</div>
+				<div field="danweiname" headerAlign="center" width="160">单位名称</div>
+				<div field="weituotype" headerAlign="center" width="80" align="center" data-options="{code:'委托类型'}">委托类型</div>
+				<div field="pwlicenseyxq" width="100" align="center" headerAlign="center" data-options="{'format':'yyyy-MM-dd'}">排污许可证有效期</div>
+				<div field="auditstatus" width="60" align="center" headerAlign="center" data-options="{code:'审核状态'}">审核状态</div>
+				<div width="40" align="center" headerAlign="center" renderer="onprintRenderer">操作</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 请修改相对路径 -->
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		// 初始化页面
+		epoint.initPage('lgstbrhuizhilistaction');
+		
+		//渲染查看按钮
+		var onprintRenderer = function(e) {
+			return epoint.renderCell(e, "action-icon icon-print", "OpenPDF");
+		};
+		function OpenPDF(id) {
+			epoint.openDialog("打印交易委托", "../../../netztbmis/pages/signature/YWPDFSignature?ClientGuid=" + id 
+					+ "&BiaoDuanGuid=&ProjectGuid=&XiaQuCode=&FileCode=PWQ87&rebuild=1");
+		}
+		//]]>
+	</script>
+</body>
+</html>

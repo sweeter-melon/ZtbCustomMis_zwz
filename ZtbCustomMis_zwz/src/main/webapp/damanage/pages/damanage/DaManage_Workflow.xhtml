@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>新增档案</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- 请修改相对路径 -->
+<script src="../../../fui/js/cssboot.js"></script>
+</head>
+<body>
+	<div class="page-loading"></div>
+
+	<!-- toolbar区域 -->
+	<div class="fui-toolbar">
+		<div class="btn-group mr10">
+			<div id="btnAdd" class="mini-button" onclick="save">修改保存</div>
+		</div>
+	</div>
+
+	<div class="fui-content">
+		<div class="fui-accordions">
+			<div role="accordion" opened="true">
+				<div role="head" title="档案信息"></div>
+				<div role="body">
+					<!-- 内容区域 -->
+					<div id="fui-form" class="fui-form">
+						<div role="form">
+							<div role="row">
+								<div role="control" label="档案编号" starred="true">
+									<input bind="dataBean.ArchivesNo" id="ArchivesNo" class="mini-outputtext" style="width: 100%;" maxLength="200"/>
+								</div>
+								<div role="control" label="档案名称" starred="true">
+									<input bind="dataBean.ArchivesName" id="ArchivesName" required="true" class="mini-textbox" style="width: 100%;" vtype="maxLength:300"/>
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="年度" starred="true">
+									<input bind="dataBean.guidangyear" id="guidangyear" required="true" class="mini-textbox" style="width: 100%;" />
+								</div>
+								<div role="control" label="密级" starred="true">
+									<input bind="dataBean.SecrecyLvl" id="SecrecyLvl" required="true" class="mini-combobox" action="CodeItems('档案密级')" style="width: 100%;" />
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="保管期限" starred="true">
+									<input bind="dataBean.KeepTime" id="KeepTime"  class="mini-combobox" action="CodeItems('档案保管期限')" style="width: 100%;" required="true"/>
+								</div>
+								<div role="control" label="归档时间" starred="true">
+									<input bind="dataBean.SBR_Date" id="SBR_Date" class="mini-outputtext"  style="width: 100%;" required="true"/>
+								</div>
+							</div>
+							<div role="row">
+								<div role="control" label="档案所属单位" starred="true">
+									<input bind="dataBean.ArchivesDanWei" id="ArchivesDanWei" class="mini-textbox" style="width: 100%;" required="true"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div role="accordion" opened="true">
+				<div role="head" title="档案电子件"></div>
+				<div role="body">
+					<div class="form-wrap">
+						<div class="form-content">
+							<div class="uc-ywscanfilelist" id="ywscanfilelist1" action="ywscanfileValue" data-options=""></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../fui/js/jsboot.js"></script>
+	<script>
+		//<![CDATA[
+		//初始化页面
+		epoint.initPage('damanageworkflowaction', null, function(data) {
+		});
+
+		
+		function save() {
+			if(!epoint.validate()){
+		 		return false;
+		 	} 
+			epoint.execute("saveInfo", null, null, function(data) {
+				epoint.closeDialog(data);
+			});
+		}
+
+		
+		//]]>
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Report</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+<style type="text/css">
+</style>
+
+</head>
+<body>
+	<table cellspacing="0" cellpadding="5" border="1" style="width: 748px; border-collapse: collapse; margin: 0 auto">
+		<tr>
+			<td align="center">选取编号</td>
+			<td align="center">${xuanQuInfo.xuanquno}</td>
+			<td align="center">选取名称</td>
+			<td align="center">${xuanQuInfo.xuanquno}</td>
+		</tr>
+		<tr>
+			<td align="center">申请时间</td>
+			<td align="center">${xuanQuInfo.shengqingdate}</td>
+			<td align="center">单位名称</td>
+			<td align="center">${xuanQuInfo.danweiname}</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="text-align:left">候选代理信息</td>
+		</tr>
+		<tr>
+			<td align="center">组织机构代码</td>
+			<td align="center">代理名称</td>
+			<td align="center">注册资金</td>
+			<td align="center">中选项目数量</td>
+		</tr>
+		#foreach($daiLiInfo in $daiLiList)
+		 <tr>
+			<td align="center">${daiLiInfo.unitorgnum}</td>
+			<td align="center">${daiLiInfo.dailiname}</td>
+			<td align="center">${daiLiInfo.zhucezijin}</td>
+			<td align="center">$!{daiLiInfo.extractnum}</td>
+		 </tr>
+		#end
+	</table>
+</body>
+</html>
