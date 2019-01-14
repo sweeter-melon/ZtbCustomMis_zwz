@@ -40,7 +40,7 @@ public class PwqBeiZhuAction extends BasePage4List
                 rowguid);
         DB_OperationLog.Sys_OperationLog_Add_NoTran(rowguid, ClsEnum.SubSysName.建设工程, ClsEnum.OperName.修改,
                 "修改备注：" + remark, "备注");
-        
+        System.out.println("Git success");
         service.update(dataBean);
     }
   
